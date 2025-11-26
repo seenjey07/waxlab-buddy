@@ -7,3 +7,8 @@ export interface UnitToggleProps {
     currentStep: number;
     totalSteps: number;
   }
+
+  export interface StearicAcidPageProps {
+    onNext: (percentage: number) => void;
+    onBack: () => void;
+  }

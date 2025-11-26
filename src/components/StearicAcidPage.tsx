@@ -3,11 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ProgressIndicator from "./ProgressIndicator";
 import { FlaskConical, Info, ArrowLeft } from "lucide-react";
-
-interface StearicAcidPageProps {
-  onNext: (percentage: number) => void;
-  onBack: () => void;
-}
+import { type StearicAcidPageProps } from "@/types/props";
 
 const StearicAcidPage = ({ onNext, onBack }: StearicAcidPageProps) => {
   const [percentage, setPercentage] = useState("");
@@ -35,7 +31,7 @@ const StearicAcidPage = ({ onNext, onBack }: StearicAcidPageProps) => {
           <div className="bg-muted rounded-2xl p-4 mb-6 border-2 border-secondary/20">
             <div className="flex gap-2">
               <Info className="w-5 h-5 text-secondary shrink-0 mt-1" />
-              <p className="text-sm text-primary">
+              <p className="text-sm text-primary text-justify">
                 <strong>Did you know?</strong> Stearic acid helps make candles harder and last longer! 
                 It raises the melting point and improves burn quality.
               </p>
