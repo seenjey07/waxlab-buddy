@@ -6,6 +6,7 @@ import { PageLayout } from "@/components/common";
 import logo from "@/assets/logo.png";
 import { Beaker, Sparkles } from "lucide-react";
 import type { WeightUnit } from "@/types";
+import { validateWeight, parseWeight } from "@/utils/validation";
 
 interface WelcomePageProps {
   onNext: (weight: number, unit: WeightUnit) => void;
@@ -16,11 +17,13 @@ const WelcomePage = ({ onNext }: WelcomePageProps) => {
   const [unit, setUnit] = useState<WeightUnit>("g");
 
   const handleNext = () => {
-    const numWeight = parseFloat(weight);
-    if (numWeight && numWeight > 0) {
-      onNext(numWeight, unit);
+    const parsedWeight = parseWeight(weight);
+    if (parsedWeight !== null) {
+      onNext(parsedWeight, unit);
     }
   };
+
+  const isWeightValid = validateWeight(weight).isValid;
 
   return (
     <PageLayout maxWidth="md">
@@ -65,7 +68,7 @@ const WelcomePage = ({ onNext }: WelcomePageProps) => {
 
           <Button
             onClick={handleNext}
-            disabled={!weight || parseFloat(weight) <= 0}
+            disabled={!isWeightValid}
             className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl bg-secondary hover:bg-secondary/90 text-secondary-foreground transition-smooth shadow-md hover:shadow-lg"
           >
             Next →
