@@ -5,16 +5,19 @@ import ProgressIndicator from "./ProgressIndicator";
 import { PageLayout, PageHeader, InfoCard } from "@/components/common";
 import { FlaskConical, ArrowLeft } from "lucide-react";
 import { type StearicAcidPageProps } from "@/types/props";
+import { validatePercentage, parsePercentage } from "@/utils/validation";
 
 const StearicAcidPage = ({ onNext, onBack }: StearicAcidPageProps) => {
   const [percentage, setPercentage] = useState("");
 
   const handleNext = () => {
-    const numPercentage = parseFloat(percentage);
-    if (numPercentage && numPercentage >= 0 && numPercentage <= 100) {
-      onNext(numPercentage);
+    const parsedPercentage = parsePercentage(percentage);
+    if (parsedPercentage !== null) {
+      onNext(parsedPercentage);
     }
   };
+
+  const isPercentageValid = validatePercentage(percentage).isValid;
 
   return (
     <PageLayout maxWidth="md">
@@ -59,7 +62,7 @@ const StearicAcidPage = ({ onNext, onBack }: StearicAcidPageProps) => {
             </Button>
             <Button
               onClick={handleNext}
-              disabled={!percentage || parseFloat(percentage) < 0 || parseFloat(percentage) > 100}
+              disabled={!isPercentageValid}
               className="flex-1 h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl bg-secondary hover:bg-secondary/90 text-secondary-foreground transition-smooth shadow-md hover:shadow-lg"
             >
               Next →
