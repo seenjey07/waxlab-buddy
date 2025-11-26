@@ -1,14 +1,12 @@
 import { cn } from "@/lib/utils";
 import type { UnitToggleProps } from "@/types/props";
 import { Button } from "@/components/ui/button";
-
-
-const units = ["g", "oz", "kg", "lb"];
+import { SUPPORTED_UNITS } from "@/constants";
 
 const UnitToggle = ({ unit, onUnitChange }: UnitToggleProps) => {
   return (
     <div className="flex gap-2 justify-center">
-      {units.map((u) => (
+      {SUPPORTED_UNITS.map((u) => (
         <Button
           key={u}
           onClick={() => onUnitChange(u)}
