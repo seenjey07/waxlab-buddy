@@ -5,16 +5,19 @@ import ProgressIndicator from "./ProgressIndicator";
 import { PageLayout, PageHeader, InfoCard } from "@/components/common";
 import { Droplet, ArrowLeft, Calculator } from "lucide-react";
 import { type FragranceOilPageProps } from "@/types/props";
+import { validatePercentage, parsePercentage } from "@/utils/validation";
 
 const FragranceOilPage = ({ onCalculate, onBack }: FragranceOilPageProps) => {
   const [percentage, setPercentage] = useState("");
 
   const handleCalculate = () => {
-    const numPercentage = parseFloat(percentage);
-    if (numPercentage && numPercentage >= 0 && numPercentage <= 100) {
-      onCalculate(numPercentage);
+    const parsedPercentage = parsePercentage(percentage);
+    if (parsedPercentage !== null) {
+      onCalculate(parsedPercentage);
     }
   };
+
+  const isPercentageValid = validatePercentage(percentage).isValid;
 
   return (
     <PageLayout maxWidth="md">
@@ -59,7 +62,7 @@ const FragranceOilPage = ({ onCalculate, onBack }: FragranceOilPageProps) => {
             </Button>
             <Button
               onClick={handleCalculate}
-              disabled={!percentage || parseFloat(percentage) < 0 || parseFloat(percentage) > 100}
+              disabled={!isPercentageValid}
               className="flex-1 h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl bg-secondary hover:bg-secondary/90 text-secondary-foreground transition-smooth shadow-md hover:shadow-lg"
             >
               <Calculator className="w-5 h-5 mr-2" />
