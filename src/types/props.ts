@@ -12,3 +12,8 @@ export interface UnitToggleProps {
     onNext: (percentage: number) => void;
     onBack: () => void;
   }
+
+  export interface FragranceOilPageProps {
+    onCalculate: (percentage: number) => void;
+    onBack: () => void;
+  }
