@@ -1,6 +1,7 @@
 import { useState } from "react";
 import WelcomePage from "@/components/WelcomePage";
 import StearicAcidPage from "@/components/StearicAcidPage";
+import FragranceOilPage from "@/components/FragranceOilPage";
 
 
 const Index = () => {
@@ -8,6 +9,7 @@ const Index = () => {
     const [waxWeight, setWaxWeight] = useState(0);
     const [unit, setUnit] = useState("g");
     const [saPercentage, setSaPercentage] = useState(0);
+    const [foPercentage, setFoPercentage] = useState(0);
 
     const handleWelcomeNext = (weight: number, selectedUnit: string) => {
         setWaxWeight(weight);
@@ -20,12 +22,18 @@ const Index = () => {
         setStep(3);
       };
 
+      const handleFoCalculate = (percentage: number) => {
+        setFoPercentage(percentage);
+        setStep(4);
+      };
+
   return (
     <>
       {step === 1 && <WelcomePage onNext={handleWelcomeNext} />}
       {step === 2 && <StearicAcidPage onNext={handleSaNext} onBack={() => setStep(1)} />} 
-      {step === 3 && <div>Results: wax weight {waxWeight} {unit}, sa percentage {saPercentage}%</div>}
-      {/* Placeholder muna pero next screen is for Stearic Acid weight input */}
+      {step === 3 && <FragranceOilPage onCalculate={handleFoCalculate} onBack={() => setStep(2)} />}
+      {step === 4 && <div>Results: wax weight {waxWeight} {unit}, sa percentage {saPercentage}%, fo percentage {foPercentage}%</div>}
+
 
     </>
   )
