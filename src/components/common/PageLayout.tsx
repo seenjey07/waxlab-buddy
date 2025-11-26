@@ -1,9 +1,4 @@
-import type { ReactNode } from "react";
-
-interface PageLayoutProps {
-  children: ReactNode;
-  maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl";
-}
+import type { PageLayoutProps } from "@/types/props";
 
 export const PageLayout = ({ children, maxWidth = "md" }: PageLayoutProps) => {
   const maxWidthClasses = {

@@ -1,10 +1,5 @@
-import type { ReactNode } from "react";
 import { Info } from "lucide-react";
-
-interface InfoCardProps {
-  children: ReactNode;
-  icon?: ReactNode;
-}
+import type { InfoCardProps } from "@/types/props";
 
 export const InfoCard = ({ children, icon }: InfoCardProps) => {
   return (

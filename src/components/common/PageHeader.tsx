@@ -1,10 +1,4 @@
-import type { LucideIcon } from "lucide-react";
-
-interface PageHeaderProps {
-  icon: LucideIcon;
-  title: string;
-  iconSize?: "sm" | "md" | "lg";
-}
+import type { PageHeaderProps } from "@/types/props";
 
 export const PageHeader = ({ icon: Icon, title, iconSize = "md" }: PageHeaderProps) => {
   const iconSizes = {

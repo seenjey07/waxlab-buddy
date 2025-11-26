@@ -1,12 +1,4 @@
-import type { LucideIcon } from "lucide-react";
-
-interface ResultCardProps {
-  icon: LucideIcon;
-  title: string;
-  value: string;
-  subtitle?: string;
-  variant?: "default" | "highlight";
-}
+import type { ResultCardProps } from "@/types/props";
 
 export const ResultCard = ({
   icon: Icon,
