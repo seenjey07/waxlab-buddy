@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import UnitToggle from "./UnitToggle";
-import { PageLayout } from "@/components/common";
+import { PageLayout, ErrorMessage } from "@/components/common";
 import logo from "@/assets/logo.png";
 import { Beaker, Sparkles } from "lucide-react";
 import type { WeightUnit } from "@/types";
@@ -15,15 +15,23 @@ interface WelcomePageProps {
 const WelcomePage = ({ onNext }: WelcomePageProps) => {
   const [weight, setWeight] = useState("");
   const [unit, setUnit] = useState<WeightUnit>("g");
+  const [touched, setTouched] = useState(false);
+  const [attemptedSubmit, setAttemptedSubmit] = useState(false);
+
+  const validation = validateWeight(weight);
+  const showError = (touched || attemptedSubmit) && !validation.isValid;
 
   const handleNext = () => {
+    setAttemptedSubmit(true);
     const parsedWeight = parseWeight(weight);
     if (parsedWeight !== null) {
       onNext(parsedWeight, unit);
     }
   };
 
-  const isWeightValid = validateWeight(weight).isValid;
+  const handleBlur = () => {
+    setTouched(true);
+  };
 
   return (
     <PageLayout maxWidth="md">
@@ -52,15 +60,25 @@ const WelcomePage = ({ onNext }: WelcomePageProps) => {
             Enter Wax Weight
           </label>
           
-          <Input
-            type="number"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-            placeholder="Enter amount..."
-            className="text-center text-primary font-bold mb-4 rounded-2xl h-14"
-            min="0"
-            step="0.01"
-          />
+          <div className="mb-4">
+            <Input
+              type="number"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              onBlur={handleBlur}
+              placeholder="Enter amount..."
+              className={`text-center text-primary font-bold rounded-2xl h-14 ${
+                showError ? "border-destructive focus-visible:ring-destructive" : ""
+              }`}
+              min="0"
+              step="0.01"
+              aria-invalid={showError}
+              aria-describedby={showError ? "weight-error" : undefined}
+            />
+            {showError && validation.error && (
+              <ErrorMessage message={validation.error} id="weight-error" />
+            )}
+          </div>
 
           <div className="mb-6">
             <UnitToggle unit={unit} onUnitChange={setUnit} />
@@ -68,7 +86,7 @@ const WelcomePage = ({ onNext }: WelcomePageProps) => {
 
           <Button
             onClick={handleNext}
-            disabled={!isWeightValid}
+            disabled={!validation.isValid}
             className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl bg-secondary hover:bg-secondary/90 text-secondary-foreground transition-smooth shadow-md hover:shadow-lg"
           >
             Next →
