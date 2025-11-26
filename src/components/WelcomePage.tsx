@@ -4,14 +4,15 @@ import { Input } from "@/components/ui/input";
 import UnitToggle from "./UnitToggle";
 import logo from "@/assets/logo.png";
 import { Beaker, Sparkles } from "lucide-react";
+import type { WeightUnit } from "@/types";
 
 interface WelcomePageProps {
-  onNext: (weight: number, unit: string) => void;
+  onNext: (weight: number, unit: WeightUnit) => void;
 }
 
 const WelcomePage = ({ onNext }: WelcomePageProps) => {
   const [weight, setWeight] = useState("");
-  const [unit, setUnit] = useState("g");
+  const [unit, setUnit] = useState<WeightUnit>("g");
 
   const handleNext = () => {
     const numWeight = parseFloat(weight);
