@@ -3,16 +3,16 @@ import WelcomePage from "@/components/WelcomePage";
 import StearicAcidPage from "@/components/StearicAcidPage";
 import FragranceOilPage from "@/components/FragranceOilPage";
 import ResultsPage from "@/components/ResultsPage";
-
+import type { WeightUnit } from "@/types";
 
 const Index = () => {
     const [step, setStep] = useState(1);
     const [waxWeight, setWaxWeight] = useState(0);
-    const [unit, setUnit] = useState("g");
+    const [unit, setUnit] = useState<WeightUnit>("g");
     const [saPercentage, setSaPercentage] = useState(0);
     const [foPercentage, setFoPercentage] = useState(0);
 
-    const handleWelcomeNext = (weight: number, selectedUnit: string) => {
+    const handleWelcomeNext = (weight: number, selectedUnit: WeightUnit) => {
         setWaxWeight(weight);
         setUnit(selectedUnit);
         setStep(2);
