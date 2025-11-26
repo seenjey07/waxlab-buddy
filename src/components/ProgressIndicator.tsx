@@ -12,7 +12,7 @@ const ProgressIndicator = ({ currentStep, totalSteps }: ProgressIndicatorProps) 
               step === currentStep
                 ? "bg-secondary text-secondary-foreground scale-110"
                 : step < currentStep
-                ? "bg-primary text-primary-foreground"
+                ? "bg-lab-gold/40 text-primary-foreground"
                 : "bg-muted text-muted-foreground"
             )}
           >
