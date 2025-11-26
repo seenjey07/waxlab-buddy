@@ -27,6 +27,12 @@ export interface ResultCardProps {
   variant?: "default" | "highlight";
 }
 
+export interface ErrorMessageProps {
+  message: string;
+  className?: string;
+  id?: string;
+}
+
 // Page-specific component props
 export interface UnitToggleProps {
   unit: WeightUnit;
