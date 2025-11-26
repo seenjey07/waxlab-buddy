@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ProgressIndicator from "./ProgressIndicator";
-import { FlaskConical, Info, ArrowLeft } from "lucide-react";
+import { PageLayout, PageHeader, InfoCard } from "@/components/common";
+import { FlaskConical, ArrowLeft } from "lucide-react";
 import { type StearicAcidPageProps } from "@/types/props";
 
 const StearicAcidPage = ({ onNext, onBack }: StearicAcidPageProps) => {
@@ -16,27 +17,16 @@ const StearicAcidPage = ({ onNext, onBack }: StearicAcidPageProps) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-linear-to-tr from-background via-lab-maroon to-background">
-      <div className="w-full max-w-md">
-        <ProgressIndicator currentStep={2} totalSteps={4} />
-        
-        <div className="bg-card rounded-3xl shadow-lg p-6 sm:p-8 border-2 border-border animate-fade-in">
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <FlaskConical className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />
-            <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center">
-              Stearic Acid
-            </h2>
-          </div>
+    <PageLayout maxWidth="md">
+      <ProgressIndicator currentStep={2} totalSteps={4} />
+      
+      <div className="bg-card rounded-3xl shadow-lg p-6 sm:p-8 border-2 border-border animate-fade-in">
+        <PageHeader icon={FlaskConical} title="Stearic Acid" />
 
-          <div className="bg-muted rounded-2xl p-4 mb-6 border-2 border-secondary/20">
-            <div className="flex gap-2">
-              <Info className="w-5 h-5 text-secondary shrink-0 mt-1" />
-              <p className="text-sm text-primary text-justify">
-                <strong>Did you know?</strong> Stearic acid helps make candles harder and last longer! 
-                It raises the melting point and improves burn quality.
-              </p>
-            </div>
-          </div>
+        <InfoCard>
+          <strong>Did you know?</strong> Stearic acid helps make candles harder and last longer! 
+          It raises the melting point and improves burn quality.
+        </InfoCard>
 
           <label className="block text-lg sm:text-xl font-bold text-primary mb-4 text-center">
             Stearic Acid Percentage
@@ -76,8 +66,7 @@ const StearicAcidPage = ({ onNext, onBack }: StearicAcidPageProps) => {
             </Button>
           </div>
         </div>
-      </div>
-    </div>
+      </PageLayout>
   );
 };
 
