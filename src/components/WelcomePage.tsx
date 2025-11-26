@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import UnitToggle from "./UnitToggle";
+import { PageLayout } from "@/components/common";
 import logo from "@/assets/logo.png";
 import { Beaker, Sparkles } from "lucide-react";
 import type { WeightUnit } from "@/types";
@@ -22,8 +23,7 @@ const WelcomePage = ({ onNext }: WelcomePageProps) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-linear-to-tr from-background via-lab-maroon to-background">
-      <div className="w-full max-w-md">
+    <PageLayout maxWidth="md">
         <div className="text-center mb-8 animate-fade-in">
           <img 
             src={logo} 
@@ -71,8 +71,7 @@ const WelcomePage = ({ onNext }: WelcomePageProps) => {
             Next →
           </Button>
         </div>
-      </div>
-    </div>
+      </PageLayout>
   );
 };
 
