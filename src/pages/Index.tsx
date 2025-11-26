@@ -1,57 +1,39 @@
-import { useState } from "react";
 import WelcomePage from "@/components/WelcomePage";
 import StearicAcidPage from "@/components/StearicAcidPage";
 import FragranceOilPage from "@/components/FragranceOilPage";
 import ResultsPage from "@/components/ResultsPage";
-import type { WeightUnit } from "@/types";
+import { useCandleForm } from "@/hooks/useCandleForm";
 
 const Index = () => {
-    const [step, setStep] = useState(1);
-    const [waxWeight, setWaxWeight] = useState(0);
-    const [unit, setUnit] = useState<WeightUnit>("g");
-    const [saPercentage, setSaPercentage] = useState(0);
-    const [foPercentage, setFoPercentage] = useState(0);
-
-    const handleWelcomeNext = (weight: number, selectedUnit: WeightUnit) => {
-        setWaxWeight(weight);
-        setUnit(selectedUnit);
-        setStep(2);
-      };
-
-      const handleSaNext = (percentage: number) => {
-        setSaPercentage(percentage);
-        setStep(3);
-      };
-
-      const handleFoCalculate = (percentage: number) => {
-        setFoPercentage(percentage);
-        setStep(4);
-      };
-
-      const handleReset = () => {
-        setStep(1);
-        setWaxWeight(0);
-        setUnit("g");
-        setSaPercentage(0);
-        setFoPercentage(0);
-      };
+  const {
+    step,
+    waxWeight,
+    unit,
+    saPercentage,
+    foPercentage,
+    setWeight,
+    setSAPercentage,
+    setFOPercentage,
+    prevStep,
+    reset,
+  } = useCandleForm();
 
   return (
     <>
-      {step === 1 && <WelcomePage onNext={handleWelcomeNext} />}
-      {step === 2 && <StearicAcidPage onNext={handleSaNext} onBack={() => setStep(1)} />} 
-      {step === 3 && <FragranceOilPage onCalculate={handleFoCalculate} onBack={() => setStep(2)} />}
+      {step === 1 && <WelcomePage onNext={setWeight} />}
+      {step === 2 && <StearicAcidPage onNext={setSAPercentage} onBack={prevStep} />} 
+      {step === 3 && <FragranceOilPage onCalculate={setFOPercentage} onBack={prevStep} />}
       {step === 4 && (
         <ResultsPage
-        waxWeight={waxWeight}
-        unit={unit}
-        saPercentage={saPercentage}
-        foPercentage={foPercentage}
-        onReset={handleReset}
-      />
+          waxWeight={waxWeight}
+          unit={unit}
+          saPercentage={saPercentage}
+          foPercentage={foPercentage}
+          onReset={reset}
+        />
       )}
     </>
-  )
-}
+  );
+};
 
 export default Index
