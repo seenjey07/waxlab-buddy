@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ProgressIndicator from "./ProgressIndicator";
-import { Droplet, Info, ArrowLeft, Calculator } from "lucide-react";
+import { PageLayout, PageHeader, InfoCard } from "@/components/common";
+import { Droplet, ArrowLeft, Calculator } from "lucide-react";
 import { type FragranceOilPageProps } from "@/types/props";
 
 const FragranceOilPage = ({ onCalculate, onBack }: FragranceOilPageProps) => {
@@ -16,27 +17,16 @@ const FragranceOilPage = ({ onCalculate, onBack }: FragranceOilPageProps) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-linear-to-tr from-background via-lab-maroon to-background">
-      <div className="w-full max-w-md">
-        <ProgressIndicator currentStep={3} totalSteps={4} />
-        
-        <div className="bg-card rounded-3xl shadow-lg p-6 sm:p-8 border-2 border-border animate-fade-in">
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <Droplet className="w-8 h-8 sm:w-10 sm:h-10 text-secondary" />
-            <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center">
-              Fragrance Oil
-            </h2>
-          </div>
+    <PageLayout maxWidth="md">
+      <ProgressIndicator currentStep={3} totalSteps={4} />
+      
+      <div className="bg-card rounded-3xl shadow-lg p-6 sm:p-8 border-2 border-border animate-fade-in">
+        <PageHeader icon={Droplet} title="Fragrance Oil" />
 
-          <div className="bg-muted rounded-2xl p-4 mb-6 border-2 border-secondary/20">
-            <div className="flex gap-2">
-              <Info className="w-5 h-5 text-secondary shrink-0 mt-1" />
-              <p className="text-sm text-primary text-justify">
-                <strong>Pro tip!</strong> Most soy candles work well between 6%–10% fragrance load. 
-                Too much can affect burn quality, too little means weak scent throw.
-              </p>
-            </div>
-          </div>
+        <InfoCard>
+          <strong>Pro tip!</strong> Most soy candles work well between 6%–10% fragrance load. 
+          Too much can affect burn quality, too little means weak scent throw.
+        </InfoCard>
 
           <label className="block text-lg sm:text-xl font-bold text-primary mb-4 text-center">
             Fragrance Oil Percentage
@@ -77,8 +67,7 @@ const FragranceOilPage = ({ onCalculate, onBack }: FragranceOilPageProps) => {
             </Button>
           </div>
         </div>
-      </div>
-    </div>
+      </PageLayout>
   );
 };
 
