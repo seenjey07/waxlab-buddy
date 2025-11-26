@@ -17,3 +17,11 @@ export interface UnitToggleProps {
     onCalculate: (percentage: number) => void;
     onBack: () => void;
   }
+
+  export interface ResultsPageProps {
+    waxWeight: number;
+    unit: string;
+    saPercentage: number;
+    foPercentage: number;
+    onReset: () => void;
+  }
