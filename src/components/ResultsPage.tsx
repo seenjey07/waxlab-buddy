@@ -3,59 +3,10 @@ import ProgressIndicator from "./ProgressIndicator";
 import { FlaskConical, Droplet, Scale, Sparkles, Lightbulb, Home } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { type ResultsPageProps } from "@/types/props";
-
-
-const convertToGrams = (weight: number, unit: string): number => {
-  switch (unit.toLowerCase()) {
-    case "oz":
-      return weight * 28.3495;
-    case "kg":
-      return weight * 1000;
-    case "lb":
-      return weight * 453.592;
-    case "g":
-    default:
-      return weight;
-  }
-};
-
-const convertFromGrams = (weightInGrams: number, unit: string): number => {
-  switch (unit.toLowerCase()) {
-    case "oz":
-      return weightInGrams / 28.3495;
-    case "kg":
-      return weightInGrams / 1000;
-    case "lb":
-      return weightInGrams / 453.592;
-    case "g":
-    default:
-      return weightInGrams;
-  }
-};
-
-const formatNumber = (value: number, unit: string): string => {
-  if (unit.toLowerCase() === "g") {
-    return value < 100 ? value.toFixed(2) : value.toFixed(1);
-  } else if (unit.toLowerCase() === "kg") {
-    return value.toFixed(2);
-  } else if (unit.toLowerCase() === "oz" || unit.toLowerCase() === "lb") {
-    return value.toFixed(2);
-  }
-  return value.toFixed(2);
-};
+import { calculateRecipe, formatWeight } from "@/utils/calculations";
 
 const ResultsPage = ({ waxWeight, unit, saPercentage, foPercentage, onReset }: ResultsPageProps) => {
-  const weightInGrams = convertToGrams(waxWeight, unit);
-  
-  // Calculate all values in grams first for accuracy
-  const stearicAcidInGrams = (weightInGrams * saPercentage) / 100;
-  const fragranceOilInGrams = (weightInGrams * foPercentage) / 100;
-  const finalWaxInGrams = weightInGrams - (stearicAcidInGrams + fragranceOilInGrams);
-  
-  // Convert results back to the user's unit selection for display
-  const stearicAcid = convertFromGrams(stearicAcidInGrams, unit);
-  const fragranceOil = convertFromGrams(fragranceOilInGrams, unit);
-  const finalWax = convertFromGrams(finalWaxInGrams, unit);
+  const recipe = calculateRecipe(waxWeight, unit, saPercentage, foPercentage);
 
 
   return (
@@ -84,7 +35,7 @@ const ResultsPage = ({ waxWeight, unit, saPercentage, foPercentage, onReset }: R
                 <h3 className="text-lg font-bold text-primary">Original Wax Weight</h3>
               </div>
               <p className="text-2xl font-bold text-accent ml-9">
-                {formatNumber(waxWeight, unit)} {unit}
+                {formatWeight(waxWeight, unit)} {unit}
               </p>
             </div>
 
@@ -95,7 +46,7 @@ const ResultsPage = ({ waxWeight, unit, saPercentage, foPercentage, onReset }: R
                 <span className="text-lg font-bold text-muted-foreground">({saPercentage}%)</span>
               </div>
               <p className="text-2xl font-bold text-accent ml-9">
-                {formatNumber(stearicAcid, unit)} {unit} 
+                {formatWeight(recipe.stearicAcid, unit)} {unit} 
               </p>
             </div>
 
@@ -106,7 +57,7 @@ const ResultsPage = ({ waxWeight, unit, saPercentage, foPercentage, onReset }: R
                 <span className="text-lg font-bold text-muted-foreground">({foPercentage}%)</span>
               </div>
               <p className="text-2xl font-bold text-accent ml-9">
-                {formatNumber(fragranceOil, unit)} {unit}
+                {formatWeight(recipe.fragranceOil, unit)} {unit}
               </p>
             </div>
 
@@ -116,7 +67,7 @@ const ResultsPage = ({ waxWeight, unit, saPercentage, foPercentage, onReset }: R
                 <h3 className="text-lg font-bold text-primary">Final Wax Weight</h3>
               </div>
               <p className="text-2xl font-bold text-accent ml-9">
-                {formatNumber(finalWax, unit)} {unit}
+                {formatWeight(recipe.finalWax, unit)} {unit}
               </p>
             </div>
           </div>
