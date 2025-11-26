@@ -16,7 +16,7 @@ const FragranceOilPage = ({ onCalculate, onBack }: FragranceOilPageProps) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-linear-to-tr from-background via-lab-maroon to-background">
+    <div className="min-h-screen flex items-center justify-center p-6 bg-linear-to-tr from-background via-lab-maroon to-background">
       <div className="w-full max-w-md">
         <ProgressIndicator currentStep={3} totalSteps={4} />
         
