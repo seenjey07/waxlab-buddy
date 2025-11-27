@@ -14,20 +14,20 @@ const ResultsPage = ({ waxWeight, unit, saPercentage, foPercentage, onReset }: R
         <ProgressIndicator currentStep={4} totalSteps={4} />
         
         <div className="bg-card rounded-3xl shadow-lg p-6 sm:p-8 border-2 border-border animate-fade-in">
-          <div className="text-center mb-6">
+          <header className="text-center mb-6">
             <img 
               src={logo} 
-              alt="Success" 
+              alt="WaxLab Buddy logo" 
               className="w-24 h-24 mx-auto mb-2 animate-bounce-slow"
             />
             <h2 className="text-2xl font-bold text-primary mb-2 flex items-center justify-center gap-2">
               Results Ready!
-              <Sparkles className="w-8 h-8 text-secondary" />
+              <Sparkles className="w-8 h-8 text-secondary" aria-hidden="true" />
             </h2>
             <p className="text-muted-foreground text-sm">Your candle recipe is calculated</p>
-          </div>
+          </header>
 
-          <div className="space-y-4 mb-6">
+          <section className="space-y-4 mb-6" aria-label="Candle recipe results">
             <ResultCard
               icon={Scale}
               title="Original Wax Weight"
@@ -54,11 +54,11 @@ const ResultsPage = ({ waxWeight, unit, saPercentage, foPercentage, onReset }: R
               value={`${formatWeight(recipe.finalWax, unit)} ${unit}`}
               variant="highlight"
             />
-          </div>
+          </section>
 
-          <div className="bg-lab-light rounded-2xl p-4 sm:p-5 mb-6 border-2 border-secondary/20">
+          <aside className="bg-lab-light rounded-2xl p-4 sm:p-5 mb-6 border-2 border-secondary/20" aria-label="Pro tips">
             <div className="flex items-start gap-3">
-              <Lightbulb className="w-6 h-6 text-secondary shrink-0 mt-1" />
+              <Lightbulb className="w-6 h-6 text-secondary shrink-0 mt-1" aria-hidden="true" />
               <div>
                 <h4 className="font-bold text-primary mb-2 text-base sm:text-lg">Pro Tips:</h4>
                 <ul className="space-y-1 text-sm text-primary list-disc list-inside">
@@ -68,19 +68,29 @@ const ResultsPage = ({ waxWeight, unit, saPercentage, foPercentage, onReset }: R
                 </ul>
               </div>
             </div>
-          </div>
+          </aside>
 
           <Button
             onClick={onReset}
             className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground transition-smooth shadow-md hover:shadow-lg"
+            aria-label="Start a new candle calculation"
           >
-            <Home className="w-5 h-5 mr-2" />
+            <Home className="w-5 h-5 mr-2" aria-hidden="true" />
             Start New Calculation
           </Button>
 
-          <p className="text-center text-sm text-muted-foreground mt-6">
-            Powered by <a href="https://www.facebook.com/lumenessenceph" target="_blank" className="font-bold text-secondary">Lumenessence</a>
-          </p>
+          <footer className="text-center text-sm text-muted-foreground mt-6">
+            Powered by{" "}
+            <a 
+              href="https://www.facebook.com/lumenessenceph" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="font-bold text-secondary hover:underline"
+              aria-label="Visit Lumenessence on Facebook (opens in new tab)"
+            >
+              Lumenessence
+            </a>
+          </footer>
         </div>
       </PageLayout>
   );

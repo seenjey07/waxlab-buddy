@@ -43,10 +43,10 @@ const WelcomePage = ({ onNext }: WelcomePageProps) => {
           />
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-accent mb-4 flex items-center justify-center gap-2">
             WaxLab Buddy
-            <Sparkles className="w-8 h-8 text-accent animate-bounce-slow" />
+            <Sparkles className="w-8 h-8 text-accent animate-bounce-slow" aria-hidden="true" />
           </h1>
           <div className="flex items-center justify-center gap-2 text-foreground/90 mb-6">
-            <Beaker className="w-5 h-5" />
+            <Beaker className="w-5 h-5" aria-hidden="true" />
             <p className="text-base sm:text-lg">Your Scientific Candle Companion</p>
           </div>
           <p className="text-sm sm:text-base text-foreground/75 max-w-sm mx-auto">
@@ -55,13 +55,21 @@ const WelcomePage = ({ onNext }: WelcomePageProps) => {
           </p>
         </div>
 
-        <div className="bg-card rounded-3xl shadow-lg p-6 sm:p-8 border-2 border-border animate-scale-in">
-          <label className="block text-lg sm:text-xl font-bold text-primary mb-4 text-center">
+        <form 
+          className="bg-card rounded-3xl shadow-lg p-6 sm:p-8 border-2 border-border animate-scale-in"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleNext();
+          }}
+          noValidate
+        >
+          <label htmlFor="wax-weight-input" className="block text-lg sm:text-xl font-bold text-primary mb-4 text-center">
             Enter Wax Weight
           </label>
           
           <div className="mb-4">
             <Input
+              id="wax-weight-input"
               type="number"
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
@@ -74,6 +82,7 @@ const WelcomePage = ({ onNext }: WelcomePageProps) => {
               step="0.01"
               aria-invalid={showError}
               aria-describedby={showError ? "weight-error" : undefined}
+              aria-required="true"
             />
             {showError && validation.error && (
               <ErrorMessage message={validation.error} id="weight-error" />
@@ -85,13 +94,14 @@ const WelcomePage = ({ onNext }: WelcomePageProps) => {
           </div>
 
           <Button
-            onClick={handleNext}
+            type="submit"
             disabled={!validation.isValid}
             className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl bg-secondary hover:bg-secondary/90 text-secondary-foreground transition-smooth shadow-md hover:shadow-lg"
+            aria-label="Continue to next step with entered weight"
           >
             Next →
           </Button>
-        </div>
+        </form>
       </PageLayout>
   );
 };

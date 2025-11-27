@@ -31,7 +31,14 @@ const StearicAcidPage = ({ onNext, onBack }: StearicAcidPageProps) => {
     <PageLayout maxWidth="md">
       <ProgressIndicator currentStep={2} totalSteps={4} />
       
-      <div className="bg-card rounded-3xl shadow-lg p-6 sm:p-8 border-2 border-border animate-fade-in">
+      <form 
+        className="bg-card rounded-3xl shadow-lg p-6 sm:p-8 border-2 border-border animate-fade-in"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleNext();
+        }}
+        noValidate
+      >
         <PageHeader icon={FlaskConical} title="Stearic Acid" />
 
         <InfoCard>
@@ -39,12 +46,13 @@ const StearicAcidPage = ({ onNext, onBack }: StearicAcidPageProps) => {
           It raises the melting point and improves burn quality.
         </InfoCard>
 
-          <label className="block text-lg sm:text-xl font-bold text-primary mb-4 text-center">
+          <label htmlFor="stearic-acid-percentage" className="block text-lg sm:text-xl font-bold text-primary mb-4 text-center">
             Stearic Acid Percentage
           </label>
           
           <div className="relative mb-6">
             <Input
+              id="stearic-acid-percentage"
               type="number"
               value={percentage}
               onChange={(e) => setPercentage(e.target.value)}
@@ -58,6 +66,7 @@ const StearicAcidPage = ({ onNext, onBack }: StearicAcidPageProps) => {
               step="0.1"
               aria-invalid={showError}
               aria-describedby={showError ? "percentage-error" : undefined}
+              aria-required="true"
             />
             <span className="absolute top-3.5 right-8 text-xl font-bold text-muted-foreground">
               %
@@ -72,19 +81,21 @@ const StearicAcidPage = ({ onNext, onBack }: StearicAcidPageProps) => {
               onClick={onBack}
               variant="outline"
               className="flex-1 h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl transition-smooth"
+              aria-label="Go back to previous step"
             >
-              <ArrowLeft className="w-5 h-5 mr-2" />
+              <ArrowLeft className="w-5 h-5 mr-2" aria-hidden="true" />
               Back
             </Button>
             <Button
-              onClick={handleNext}
+              type="submit"
               disabled={!validation.isValid}
               className="flex-1 h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl bg-secondary hover:bg-secondary/90 text-secondary-foreground transition-smooth shadow-md hover:shadow-lg"
+              aria-label="Continue to next step with stearic acid percentage"
             >
               Next →
             </Button>
           </div>
-        </div>
+        </form>
       </PageLayout>
   );
 };

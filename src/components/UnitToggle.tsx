@@ -5,7 +5,11 @@ import { SUPPORTED_UNITS } from "@/constants";
 
 const UnitToggle = ({ unit, onUnitChange }: UnitToggleProps) => {
   return (
-    <div className="flex gap-2 justify-center">
+    <div 
+      className="flex gap-2 justify-center"
+      role="group"
+      aria-label="Select weight unit"
+    >
       {SUPPORTED_UNITS.map((u) => (
         <Button
           key={u}
@@ -16,6 +20,8 @@ const UnitToggle = ({ unit, onUnitChange }: UnitToggleProps) => {
               ? "bg-secondary text-secondary-foreground"
               : "bg-card text-card-foreground hover:bg-muted"
           )}
+          aria-pressed={unit === u}
+          aria-label={`Select ${u} as weight unit`}
         >
           {u}
         </Button>

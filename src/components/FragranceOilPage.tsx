@@ -31,7 +31,14 @@ const FragranceOilPage = ({ onCalculate, onBack }: FragranceOilPageProps) => {
     <PageLayout maxWidth="md">
       <ProgressIndicator currentStep={3} totalSteps={4} />
       
-      <div className="bg-card rounded-3xl shadow-lg p-6 sm:p-8 border-2 border-border animate-fade-in">
+      <form 
+        className="bg-card rounded-3xl shadow-lg p-6 sm:p-8 border-2 border-border animate-fade-in"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleCalculate();
+        }}
+        noValidate
+      >
         <PageHeader icon={Droplet} title="Fragrance Oil" />
 
         <InfoCard>
@@ -39,12 +46,13 @@ const FragranceOilPage = ({ onCalculate, onBack }: FragranceOilPageProps) => {
           Too much can affect burn quality, too little means weak scent throw.
         </InfoCard>
 
-          <label className="block text-lg sm:text-xl font-bold text-primary mb-4 text-center">
+          <label htmlFor="fragrance-oil-percentage" className="block text-lg sm:text-xl font-bold text-primary mb-4 text-center">
             Fragrance Oil Percentage
           </label>
           
           <div className="relative mb-6">
             <Input
+              id="fragrance-oil-percentage"
               type="number"
               value={percentage}
               onChange={(e) => setPercentage(e.target.value)}
@@ -58,6 +66,7 @@ const FragranceOilPage = ({ onCalculate, onBack }: FragranceOilPageProps) => {
               step="0.1"
               aria-invalid={showError}
               aria-describedby={showError ? "percentage-error" : undefined}
+              aria-required="true"
             />
             <span className="absolute top-3.5 right-8 text-xl font-bold text-muted-foreground">
               %
@@ -72,20 +81,22 @@ const FragranceOilPage = ({ onCalculate, onBack }: FragranceOilPageProps) => {
               onClick={onBack}
               variant="outline"
               className="flex-1 h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl transition-smooth"
+              aria-label="Go back to previous step"
             >
-              <ArrowLeft className="w-5 h-5 mr-2" />
+              <ArrowLeft className="w-5 h-5 mr-2" aria-hidden="true" />
               Back
             </Button>
             <Button
-              onClick={handleCalculate}
+              type="submit"
               disabled={!validation.isValid}
               className="flex-1 h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl bg-secondary hover:bg-secondary/90 text-secondary-foreground transition-smooth shadow-md hover:shadow-lg"
+              aria-label="Calculate candle recipe with fragrance oil percentage"
             >
-              <Calculator className="w-5 h-5 mr-2" />
+              <Calculator className="w-5 h-5 mr-2" aria-hidden="true" />
               Calculate
             </Button>
           </div>
-        </div>
+        </form>
       </PageLayout>
   );
 };

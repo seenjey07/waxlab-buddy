@@ -9,7 +9,7 @@ export const PageHeader = ({ icon: Icon, title, iconSize = "md" }: PageHeaderPro
 
   return (
     <div className="flex items-center justify-center gap-2 mb-6">
-      <Icon className={`${iconSizes[iconSize]} text-primary`} />
+      <Icon className={`${iconSizes[iconSize]} text-primary`} aria-hidden="true" />
       <h2 className="text-2xl sm:text-3xl font-bold text-primary text-center">
         {title}
       </h2>

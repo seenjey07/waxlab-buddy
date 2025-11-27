@@ -13,9 +13,9 @@ export const ResultCard = ({
   };
 
   return (
-    <div className={variantClasses[variant]}>
+    <article className={variantClasses[variant]}>
       <div className="flex items-center gap-3 mb-1">
-        <Icon className="w-6 h-6 text-primary" />
+        <Icon className="w-6 h-6 text-primary" aria-hidden="true" />
         <h3 className="text-lg font-bold text-primary">{title}</h3>
         {subtitle && (
           <span className="text-lg font-bold text-muted-foreground">
@@ -23,7 +23,9 @@ export const ResultCard = ({
           </span>
         )}
       </div>
-      <p className="text-2xl font-bold text-accent ml-9">{value}</p>
-    </div>
+      <p className="text-2xl font-bold text-accent ml-9" aria-label={`${title}: ${value}`}>
+        {value}
+      </p>
+    </article>
   );
 };
